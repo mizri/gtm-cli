@@ -1,0 +1,29 @@
+{
+  "name": "gtm-cli",
+  "version": "1.0.0",
+  "description": "cli",
+  "private": true,
+  "bin": {
+    "gtm": "./bin/index.js"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mizri/gtm-cli.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mizri/gtm-cli/issues"
+  },
+  "homepage": "https://github.com/mizri/gtm-cli#readme",
+  "dependencies": {
+    "lerna": "^4.0.0"
+  }
+}
