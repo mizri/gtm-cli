@@ -1,11 +1,11 @@
-# `@gtm-cli/core`
+# `@gtm-cli/exec`
 
 > TODO: description
 
 ## Usage
 
 ```
-const core = require('@gtm-cli/core');
+const exec = require('@gtm-cli/exec');
 
 // TODO: DEMONSTRATE API
 ```

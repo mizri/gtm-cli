@@ -1,9 +1,9 @@
 {
-  "name": "@gtm-cli/utils",
+  "name": "@gtm-cli/exec",
   "version": "1.0.0",
-  "description": "utils,gtm,cli",
+  "description": "execute",
   "author": "mziri <mizri.yu@gmail.com>",
-  "homepage": "https://github.com/mizri/gtm-cli/tree/main/packages/utils#readme",
+  "homepage": "https://github.com/mizri/gtm-cli/tree/main/core/exec#readme",
   "license": "ISC",
   "main": "lib/index.js",
   "directories": {
@@ -27,9 +27,8 @@
     "url": "https://github.com/mizri/gtm-cli/issues"
   },
   "dependencies": {
-    "lodash": "^4.17.21"
-  },
-  "devDependencies": {
-    "lodash": "^4.17.21"
+    "@gtm-cli/log": "file:../../utils/log",
+    "@gtm-cli/package": "file:../../models/package",
+    "npminstall": "^5.3.1"
   }
 }

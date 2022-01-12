@@ -1,14 +1,12 @@
 {
-  "name": "@gtm-cli/core",
+  "name": "@gtm-cli/package",
   "version": "1.0.0",
-  "description": "core",
+  "description": "package",
   "keywords": [
-    "cli",
-    "core",
-    "gtm"
+    "package"
   ],
   "author": "mziri <mizri.yu@gmail.com>",
-  "homepage": "https://github.com/mizri/gtm-cli/tree/main/packages/core#readme",
+  "homepage": "https://github.com/mizri/gtm-cli/tree/main/models/package#readme",
   "license": "ISC",
   "main": "lib/index.js",
   "directories": {
@@ -32,10 +30,12 @@
     "url": "https://github.com/mizri/gtm-cli/issues"
   },
   "dependencies": {
-    "@gtm-cli/utils": "^1.0.0",
-    "lodash": "^4.17.21"
-  },
-  "devDependencies": {
-    "lodash": "^4.17.21"
+    "@gtm-cli/format-path": "file:../../utils/format-path",
+    "@gtm-cli/get-npm-info": "file:../../utils/get-npm-info",
+    "@gtm-cli/utils": "file:../../utils/utils",
+    "fs-extra": "^10.0.0",
+    "npminstall": "^5.3.1",
+    "path-exists": "^5.0.0",
+    "pkg-dir": "^6.0.1"
   }
 }

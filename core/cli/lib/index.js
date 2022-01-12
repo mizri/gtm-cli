@@ -5,7 +5,7 @@ const commander = require('commander');
 const { homedir } = require('os');
 const colors = require('colors/safe');
 const log = require('@gtm-cli/log');
-const init = require('@gtm-cli/init');
+const exec = require('@gtm-cli/exec');
 const { getNpmSemverVersion } = require('@gtm-cli/get-npm-info');
 const constant = require('./const');
 const pkg = require('../package.json');
@@ -31,19 +31,20 @@ let pathExists;
 const program = new commander.Command();
 
 async function core() {
+
   // 加载esm模块
   [pathExists] = await loadEsm();
   try {
-    checkPkgVersion();
-    checkNodeVersion();
-    checkRoot();
-    checkUserHome();
-    // checkInputArgs();
-    checkEnv();
-    await checkGloablUpdate();
+    // 准备阶段
+    await prepare();
+    // 命令行注册
     registryCommand();
   } catch(e) {
     log.error(e.message);
+    // 判断是否输出错误的执行栈
+    if (process.evn.LOG_LEVEL === 'verbose') {
+      console.log(e);
+    }
   }
 }
 
@@ -94,29 +95,6 @@ function checkUserHome() {
 }
 
 /**
- * 检查入参
- */
-// function checkInputArgs() {
-//   const minimist = require('minimist');
-//   args = minimist(process.argv.slice(2));
-
-//   checkArgs();
-// }
-
-/**
- * 修改日志级别
- */
-// function checkArgs() {
-//   if (args.debug) { // 开始了debug模式，将级别降为最低输出所有日志
-//     process.env.LOG_LEVEL = 'verbose';
-//   } else {
-//     process.env.LOG_LEVEL = 'info';
-//   }
-//   // 后置修改level
-//   log.level = process.env.LOG_LEVEL;
-// }
-
-/**
  * 检查env环境变量
  */
 function checkEnv() {
@@ -129,7 +107,6 @@ function checkEnv() {
     });
   }
   config = createDefaultConfig();
-
 }
 
 /**
@@ -181,12 +158,18 @@ function registryCommand() {
     .usage('<command> [options]')
     .version(pkg.version)
     .option('-d, --debug', 'whether to enable debug mode', false) // 添加全局参数debug
+    .option('-tp, --targetPath <targetPath>', '是否指定本地调试文件路径', false) // 添加全局参数targetPath
   
   // 初始化项目
   program
     .command('init [projectName]')
     .option('-f, --force', 'whether to force the initialization of the project')
-    .action(init);
+    .action(exec);
+
+  // 监听targetPath
+  program.on('option:targetPath', () => {
+    process.env.CLI_TARGET_PATH = program.opts().targetPath;
+  });
   
   // 监听debug参数输入
   program.on('option:debug', () => {
@@ -217,6 +200,18 @@ function registryCommand() {
     program.outputHelp();
     console.log();
   }
+}
+
+/**
+ * 脚手架准备阶段
+ */
+async function prepare() {
+  checkPkgVersion();
+  checkNodeVersion();
+  checkRoot();
+  checkUserHome();
+  checkEnv();
+  await checkGloablUpdate();
 }
 
 module.exports = core;

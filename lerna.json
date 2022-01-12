@@ -1,8 +1,11 @@
 {
   "packages": [
-    "packages/*"
+    "core/*",
+    "commands/*",
+    "models/*",
+    "utils/*"
   ],
-  "npmClient": "yarn",
-  "useWorkspaces": true,
+  "npmClient": "npm",
+  "useWorkspaces": false,
   "version": "1.0.0"
 }
