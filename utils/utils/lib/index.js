@@ -1,4 +1,5 @@
 'use strict';
+const cp = require('child_process');
 
 // var bind = require('./helpers/bind');
 
@@ -337,6 +338,61 @@ async function esmLoader(pkg) {
   }
 }
 
+/**
+ * 命令行loading
+ * @param {String} msg 提示字符
+ * @param {String} string loading字符
+ */
+function spinnerStart(msg = 'loading.. %s', string = '|/-\\') {
+  const { Spinner } = require('cli-spinner');
+  const spinner = new Spinner(msg);
+  spinner.setSpinnerString(string);
+  spinner.start();
+  return spinner;
+}
+
+/**
+ * 脚本执行
+ * @param {*} command 
+ * @param {*} args 
+ * @param {*} options 
+ * @returns 
+ */
+function exec(command, args, options) {
+	// 是否是windows
+	const win32 = process.platform === 'win32';
+	// 如果是window用cmd执行
+	const cmd = win32 ? 'cmd' : command;
+	// 参数需要拼接上[/c] window下 ['/c', '-e', code];
+	const cmdArgs = win32 ? ['/c'].concat(command, args) : args; 
+
+	return cp.spawn(cmd, cmdArgs, options || {});
+}
+
+/**
+ * 脚本执行
+ * @param {*} command 
+ * @param {*} args 
+ * @param {*} options 
+ * @returns 
+ */
+function execAsync(command, args, options) {
+  return new Promise((resolve, reject) => {
+    const p = exec(command, args, options);
+
+    p.on('error', reject);
+    p.on('exit', resolve);
+  });
+}
+
+/**
+ * 睡眠方法
+ * @param {Number} stamp 
+ */
+async function sleep(stamp = 1000) {
+  await new Promise((resolve, reject) => setTimeout(resolve, stamp));
+}
+
 module.exports = {
   isArray: isArray,
   isArrayBuffer: isArrayBuffer,
@@ -361,4 +417,8 @@ module.exports = {
   trim: trim,
   stripBOM: stripBOM,
   esmLoader: esmLoader,
-};
+  spinnerStart: spinnerStart,
+  sleep,
+  exec,
+  execAsync,
+}

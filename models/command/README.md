@@ -1,11 +1,11 @@
-# `@gtm-cli/init`
+# `command`
 
 > TODO: description
 
 ## Usage
 
 ```
-const init = require('@gtm-cli/init');
+const command = require('command');
 
 // TODO: DEMONSTRATE API
 ```

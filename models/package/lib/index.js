@@ -27,7 +27,7 @@ class Package {
 		// package 版本
 		this.packageVersion = options.packageVersion;
 		// package缓存目录前缀
-		this.cacheFilePathPrefix = this.packageName.replace('/', '-');
+		this.cacheFilePathPrefix = this.packageName.replace('/', '_');
 	}
 
 	async prepare() {
@@ -81,6 +81,9 @@ class Package {
 		// 3. 如果不存在就直接安装最新版本
 		if (!pathExists.pathExistsSync(latestFilePath)) {
 			await this.install(latestPackageVersion);
+			// 更新当前版本号
+			this.packageVersion = latestPackageVersion;
+		} else {
 			// 更新当前版本号
 			this.packageVersion = latestPackageVersion;
 		}

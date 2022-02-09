@@ -1,6 +1,5 @@
 // cjs module
 const path = require('path');
-const semver = require('semver');
 const commander = require('commander');
 const { homedir } = require('os');
 const colors = require('colors/safe');
@@ -53,20 +52,6 @@ async function core() {
  */
 function checkPkgVersion() {
   // log.success('version', pkg.version);
-}
-
-/**
- * 检查node版本号
- */
-function checkNodeVersion() {
-  // 获取当前版本号
-  const currentVersion = process.version;
-  // 比对当前最低版本号
-  const lowestVersion = constant.LEWEST_NODE_VERSION;
-  // 判断版本号
-  if (!semver.gte(currentVersion, lowestVersion)) {
-    throw new Error(colors.red(`gtm-cli need node version >= ${lowestVersion}`));
-  }
 }
 
 /**
@@ -207,7 +192,6 @@ function registryCommand() {
  */
 async function prepare() {
   checkPkgVersion();
-  checkNodeVersion();
   checkRoot();
   checkUserHome();
   checkEnv();

@@ -1,9 +1,13 @@
 {
-  "name": "@gtm-cli/exec",
+  "name": "@gtm-cli/request",
   "version": "1.0.0",
-  "description": "execute",
+  "description": "gtm-cli request",
+  "keywords": [
+    "gtm-cli",
+    "reqeust"
+  ],
   "author": "mziri <mizri.yu@gmail.com>",
-  "homepage": "https://github.com/mizri/gtm-cli/tree/main/core/exec#readme",
+  "homepage": "https://github.com/mizri/gtm-cli/tree/main/utils/request#readme",
   "license": "ISC",
   "main": "lib/index.js",
   "directories": {
@@ -13,9 +17,6 @@
   "files": [
     "lib"
   ],
-  "publishConfig": {
-    "access": "public"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mizri/gtm-cli.git"
@@ -27,9 +28,6 @@
     "url": "https://github.com/mizri/gtm-cli/issues"
   },
   "dependencies": {
-    "@gtm-cli/log": "file:../../utils/log",
-    "@gtm-cli/package": "file:../../models/package",
-    "@gtm-cli/utils": "file:../../utils/utils",
-    "npminstall": "^5.3.1"
+    "axios": "^0.25.0"
   }
 }

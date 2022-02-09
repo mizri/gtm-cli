@@ -1,9 +1,12 @@
 {
-  "name": "@gtm-cli/init",
+  "name": "@gtm-cli/command",
   "version": "1.0.0",
-  "description": "init",
+  "description": "gtm-cli command",
+  "keywords": [
+    "command"
+  ],
   "author": "mziri <mizri.yu@gmail.com>",
-  "homepage": "https://github.com/mizri/gtm-cli/tree/main/core/exec#readme",
+  "homepage": "https://github.com/mizri/gtm-cli/tree/main/models/command#readme",
   "license": "ISC",
   "main": "lib/index.js",
   "directories": {
@@ -13,9 +16,6 @@
   "files": [
     "lib"
   ],
-  "publishConfig": {
-    "access": "public"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mizri/gtm-cli.git"
@@ -27,16 +27,8 @@
     "url": "https://github.com/mizri/gtm-cli/issues"
   },
   "dependencies": {
-    "@gtm-cli/command": "file:../../models/command",
     "@gtm-cli/log": "file:../../utils/log",
-    "@gtm-cli/package": "file:../../models/package",
-    "@gtm-cli/request": "file:../../utils/request",
-    "@gtm-cli/utils": "file:../../utils/utils",
-    "ejs": "^3.1.6",
-    "fs-extra": "^10.0.0",
-    "glob": "^7.2.0",
-    "inquirer": "^8.2.0",
-    "kebab-case": "^1.0.1",
+    "colors": "^1.4.0",
     "semver": "^7.3.5"
   }
 }

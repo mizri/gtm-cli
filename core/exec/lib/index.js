@@ -1,8 +1,11 @@
 'use strict';
 
 const path = require('path');
+const cp = require('child_process');
 const Package = require('@gtm-cli/package');
 const log = require('@gtm-cli/log');
+const utils = require('@gtm-cli/utils');
+const { chdir } = require('process');
 
 module.exports = exec;
 
@@ -72,6 +75,38 @@ async function exec(name, options, command) {
 	// 2. modulePath -> package(npm模块)
 	// 3. Package.getRootFile(获取入口文件)
 	pkg.getRootFilePath().then((rootFile) => {
-		require(rootFile)(name, options, command);
+		if (rootFile) {
+			try {
+				// 创建command空对象
+				const o = Object.create(null);
+				// 将不需要的command参数剥离
+				Object.keys(command).forEach((key) => {
+					if (command.hasOwnProperty(key) && !key.startsWith('_') && key !== 'parent') {
+						o[key] = command[key];
+					}
+				});
+				// 拼接出要执行的js代码
+				const code = `require('${rootFile}')('${name}', ${JSON.stringify(options)}, ${JSON.stringify(o)})`;
+				// 开启子进程执行
+				const child = utils.exec('node', ['-e', code], {
+					cwd: process.cwd(),
+					stdio: 'inherit', // inherit方式直接执输出到父进程，不需要在child.studio中以管道的方式监听
+				});
+
+				child.on('error', () => {
+					log.error(e.message);
+					process.exit();
+				});
+
+				child.on('exit', (e) => {
+					log.verbose('命令执行成功:' + e);
+					process.exit(e);
+				});
+			} catch (e) {
+				log.error(e.message);
+			}
+		}
 	});
 }
+
+
