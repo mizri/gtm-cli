@@ -1,6 +1,6 @@
 {
   "name": "@gtm-cli/init",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "init",
   "author": "mziri <mizri.yu@gmail.com>",
   "homepage": "https://github.com/mizri/gtm-cli/tree/main/core/exec#readme",

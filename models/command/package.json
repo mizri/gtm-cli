@@ -1,6 +1,6 @@
 {
   "name": "@gtm-cli/command",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "gtm-cli command",
   "keywords": [
     "command"
